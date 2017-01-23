@@ -4,16 +4,11 @@
 """Protocols
 """
 
-from typing import (NamedTuple, Dict, Union)
+from typing import NamedTuple
 
 
 class Protocol(NamedTuple):
+    """Response protocol.
+    """
     status: int
     message: str
-
-    def _asdict(self) -> Dict[str, Union[str, int]]:
-        """Return as dict.
-
-        :return: dict
-        """
-        return {"status": self.status, "message": self.message}
