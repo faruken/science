@@ -82,8 +82,6 @@ async def status(request: Request, task_id: str) -> str:
     :return: JSON
     """
     task: Signature = signature("tasks.analyze").AsyncResult(task_id)
-    print(task)
-    print(dir(task))
     return json(Protocol(200, task.result)._asdict())
 
 
