@@ -9,7 +9,6 @@ from typing import Optional
 
 from celery import (Celery, signature)
 from celery.canvas import Signature
-from science.config import (configs, environment)
 from kombu.exceptions import OperationalError
 from sanic import Sanic
 from sanic.config import Config
@@ -19,6 +18,7 @@ from sanic.request import Request
 from sanic.response import json
 from sanic.router import REGEX_TYPES
 
+from science.config import (configs, environment)
 from science.tools.protocols import Protocol
 from science.tools.utils import imgur_parser
 
@@ -114,7 +114,7 @@ def main() -> None:  # pragma: no cover
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
     loop: uvloop.Loop = asyncio.get_event_loop()
     workers: int = cpu_count()
-    app.run(host="0.0.0.0", port=4000, workers=workers,
+    app.run(host="0.0.0.0", port=configs[environment].PORT, workers=workers,
             debug=configs[environment].DEBUG, loop=loop)
 
 
