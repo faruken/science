@@ -5,9 +5,8 @@ source = .
 omit =
     site-packages
     tests/*
-    celeryconfig.py
-    tools/__init__.py
-
+    science/celeryconfig.py
+    setup.py
 
 [report]
 exclude_lines =
