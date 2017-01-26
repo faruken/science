@@ -4,8 +4,8 @@
 import unittest
 from typing import (Dict, Union, List)
 
-from tools.protocols import Protocol
-from tools.utils import imgur_parser
+from science.tools.protocols import Protocol
+from science.tools.utils import imgur_parser
 
 
 class TestProtocol(unittest.TestCase):
@@ -19,9 +19,11 @@ class TestProtocol(unittest.TestCase):
                                 "http://imgur.com/a/531SUvC",
                                 "http://imgur.com/a/531SUvC.jpg"]
 
-    def test_protocol__asdict(self) -> None:
+    def test_protocol(self) -> None:
         mapp: Dict[str, Union[str, int]] = self.protocol._asdict()
         self.assertDictEqual({"status": 200, "message": "Hello World"}, mapp)
+        self.assertEqual(self.protocol.status, 200)
+        self.assertEqual(self.protocol.message, "Hello World")
 
     def test_imgur_parser(self) -> None:
         self.assertIsNone(imgur_parser(None))
