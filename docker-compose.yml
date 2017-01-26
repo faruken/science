@@ -1,0 +1,25 @@
+version: "2"
+services:
+  redis:
+    image: redis:3.2.6-alpine
+    hostname: redis
+    domainname: docker.redis
+    restart: always
+    volumes:
+      - /tmp/redis:/data
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass redis_passwdd
+  api:
+    hostname: api
+    domainname: docker.api
+    build: .
+    restart: always
+    volumes:
+      - .:/src/
+    environment:
+      - APP_ENV=docker
+    depends_on:
+      - redis
+    ports:
+      - "4000:4000"
