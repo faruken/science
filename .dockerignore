@@ -1,0 +1,7 @@
+htmlconv/
+tests/
+build/
+dist/
+*.egg-info/
+.cache/
+log/
