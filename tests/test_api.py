@@ -12,7 +12,7 @@ from sanic.request import Request
 from sanic.response import json as sanic_json
 from sanic.utils import sanic_endpoint_test
 
-from api import app
+from science.api import app
 
 Config.REQUEST_TIMEOUT: int = 1
 ProtocolType = Dict[str, Union[str, int]]
