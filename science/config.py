@@ -12,6 +12,7 @@ class Config:
     """
     DEBUG: bool = True
     TESTING: bool = False
+    PORT: int = 4000
     broker_url: str = "redis://127.0.0.1:6379/0"
     result_backend: str = "redis://127.0.0.1:6379/0"
     aws_access_key_id: Optional[str] = None
