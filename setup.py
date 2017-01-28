@@ -31,6 +31,7 @@ setup(
         "celery==4.0.2",
         "hiredis==0.2.0",
         "httptools==0.0.9",
+        "Logbook==1.0.0",
         "kombu==4.0.2",
         "multidict==2.1.4",
         "packaging==16.8",
@@ -44,8 +45,7 @@ setup(
         "vine==1.1.3"
     ],
     extras_require={
-        "test": ["coverage==4.3.4", "Logbook==1.0.0", "pytest==3.0.5",
-                 "pytest-cov==2.4.0"],
+        "test": ["coverage==4.3.4", "pytest==3.0.5", "pytest-cov==2.4.0"],
         "dev": ["mypy-lang==0.4.6", "typed-ast==0.6.3"]
     },
     entry_points={
