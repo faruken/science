@@ -5,6 +5,7 @@
 from typing import (Optional, Dict)
 
 import os
+import logbook
 
 
 class Config:
@@ -12,6 +13,7 @@ class Config:
     """
     DEBUG: bool = True
     TESTING: bool = False
+    LOGLEVEL: int = logbook.DEBUG
     PORT: int = 4000
     broker_url: str = "redis://127.0.0.1:6379/0"
     result_backend: str = "redis://127.0.0.1:6379/0"
@@ -22,6 +24,8 @@ class Config:
 class AWSConfig(Config):
     """AWS Config
     """
+    DEBUG: bool = False
+    LOGLEVEL: int = logbook.INFO
     aws_access_key_id: Optional[str] = os.environ.get("AWS_ACCESS_KEY_ID")
     aws_access_secret_id: Optional[str] = os.environ.get("AWS_ACCESS_SECRET_ID")
     broker_url: str = os.environ.get("AWS_BROKER_URL")
@@ -32,6 +36,7 @@ class TestConfig(Config):
     """
     """
     TESTING: bool = True
+    DEBUG: bool = False
 
 
 class DockerComposeConfig(Config):
