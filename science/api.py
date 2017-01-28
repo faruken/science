@@ -10,6 +10,8 @@ from typing import Optional
 from celery import (Celery, signature)
 from celery.canvas import Signature
 from kombu.exceptions import OperationalError
+from logbook import Logger
+from logbook.queues import RedisHandler
 from sanic import Sanic
 from sanic.config import Config
 from sanic.exceptions import (NotFound, ServerError, RequestTimeout,
@@ -32,6 +34,7 @@ celery.config_from_object("celeryconfig")
 
 UUID4_REGEX: str = r"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\Z"
 REGEX_TYPES.update({"uuid": (str, UUID4_REGEX)})
+log = Logger("__ml_web__")
 
 
 @app.exception(RequestTimeout)
@@ -94,12 +97,15 @@ async def index(request: Request) -> str:
     user_url: Optional[str] = request.json.get("url")
     url: Optional[str] = imgur_parser(user_url)
     if not url:
+        log.debug("URL Error: {0}".format(url))
         return json(Protocol(200, "Please type an imgur URL")._asdict())
     chain: Signature = signature("tasks.fetch", kwargs={"url": url})
     chain |= signature("tasks.analyze", kwargs={"url": url})
     try:
         task = chain()
     except OperationalError:
+        log.critical("Cannot connect to broker: {0}".format(
+            configs[environment].broker_url))
         return json(Protocol(500, "Something went wrong. Sorry :(")._asdict())
     return json(Protocol(200, task.task_id)._asdict())
 
@@ -119,4 +125,8 @@ def main() -> None:  # pragma: no cover
 
 
 if __name__ == '__main__':
-    main()
+    handler = RedisHandler(host=configs[environment].log_backend,
+                           key="log",
+                           level=configs[environment].LOGLEVEL)
+    with handler:
+        main()
