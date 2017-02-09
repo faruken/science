@@ -38,7 +38,7 @@ setup(
         "pyparsing==2.1.10",
         "pytz==2016.10",
         "redis==2.10.5",
-        "Sanic==0.2.0",
+        "Sanic==0.3.1",
         "six==1.10.0",
         "ujson==1.35",
         "uvloop==0.7.2",
