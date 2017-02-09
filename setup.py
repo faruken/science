@@ -14,7 +14,7 @@ setup(
     license="GPL3",
     classifiers=[
         "Development Status :: 3 - Alpha",
-        "Framework :: Sanic :: 0.2",
+        "Framework :: Sanic",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.6",
