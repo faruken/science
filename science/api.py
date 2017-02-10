@@ -24,7 +24,8 @@ from science.config import (configs, environment)
 from science.tools.protocols import Protocol
 from science.tools.utils import imgur_parser
 
-app = Sanic("__ml_web__")
+log: Logger = Logger("__ml_web__")
+app: Sanic = Sanic("__ml_web__")
 app.config: Config = Config()
 app.config.LOGO: Optional[str] = None
 app.config.REQUEST_TIMEOUT: int = 300  # 5 mins
@@ -34,7 +35,6 @@ celery.config_from_object("celeryconfig")
 
 UUID4_REGEX: str = r"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\Z"
 REGEX_TYPES.update({"uuid": (str, UUID4_REGEX)})
-log = Logger("__ml_web__")
 
 
 @app.exception(RequestTimeout)
