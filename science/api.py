@@ -118,10 +118,9 @@ def main() -> None:  # pragma: no cover
     from multiprocessing import cpu_count
     import uvloop
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
-    loop: uvloop.Loop = asyncio.get_event_loop()
     workers: int = cpu_count()
     app.run(host="0.0.0.0", port=configs[environment].PORT, workers=workers,
-            debug=configs[environment].DEBUG, loop=loop)
+            debug=configs[environment].DEBUG)
 
 
 if __name__ == '__main__':
