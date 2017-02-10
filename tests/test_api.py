@@ -5,6 +5,7 @@ import asyncio
 import json
 import unittest
 from typing import (Dict, Union)
+from uuid import (UUID, uuid4)
 
 from sanic import Sanic
 from sanic.config import Config
@@ -69,4 +70,20 @@ class TestAPI(unittest.TestCase):
                                      method="post")
         response: Dict[ProtocolType] = json.loads(res.text)
         self.assertEqual(response.get("message"), "Please type an imgur URL")
+        self.assertEqual(response.get("status"), 200)
+
+    def test_index_correct_url(self):
+        def __is_uuid4(value):
+            try:
+                _ = UUID(value, version=4)
+            except ValueError:
+                return False
+            return True
+        headers: Dict[str, str] = {"Content-Type": "application/json"}
+        payload: Dict[str, str] = {"url": "http://i.imgur.com/531SUvC.jpg"}
+        _, res = sanic_endpoint_test(self.app, uri="/",
+                                     data=json.dumps(payload), headers=headers,
+                                     method="post")
+        response: Dict[ProtocolType] = json.loads(res.text)
+        self.assertTrue(__is_uuid4(response.get("message")))
         self.assertEqual(response.get("status"), 200)
