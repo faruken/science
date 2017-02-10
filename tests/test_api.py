@@ -54,3 +54,19 @@ class TestAPI(unittest.TestCase):
         payload: Dict[ProtocolType] = json.loads(res.text)
         self.assertEqual(payload.get("status"), 500)
         self.assertEqual(payload.get("message"), "Something went wrong :(")
+
+    def test_index_method_not_allowed(self):
+        _, res = sanic_endpoint_test(self.app, uri="/", method="get")
+        payload: Dict[ProtocolType] = json.loads(res.text)
+        self.assertEqual(payload.get("message"), "Method Not Allowed")
+        self.assertEqual(payload.get("status"), 405)
+
+    def test_index_wrong_url(self):
+        headers: Dict[str, str] = {"Content-Type": "application/json"}
+        payload: Dict[str, str] = {"something": "wrong"}
+        _, res = sanic_endpoint_test(self.app, uri="/",
+                                     data=json.dumps(payload), headers=headers,
+                                     method="post")
+        response: Dict[ProtocolType] = json.loads(res.text)
+        self.assertEqual(response.get("message"), "Please type an imgur URL")
+        self.assertEqual(response.get("status"), 200)
