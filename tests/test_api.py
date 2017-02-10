@@ -87,3 +87,10 @@ class TestAPI(unittest.TestCase):
         response: Dict[ProtocolType] = json.loads(res.text)
         self.assertTrue(__is_uuid4(response.get("message")))
         self.assertEqual(response.get("status"), 200)
+
+    def test_status_unknown_task_id(self):
+        task_id = "{0}".format(uuid4())
+        _, res = sanic_endpoint_test(self.app, uri="/{0}".format(task_id))
+        response: Dict[ProtocolType] = json.loads(res.text)
+        self.assertEqual(response.get("status"), 404)
+
