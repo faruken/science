@@ -20,6 +20,7 @@ from sanic.request import Request
 from sanic.response import json
 from sanic.router import REGEX_TYPES
 
+from science.celeryconfig import CeleryConfig
 from science.config import (configs, environment)
 from science.tools.protocols import Protocol
 from science.tools.utils import imgur_parser
@@ -31,7 +32,7 @@ app.config.LOGO: Optional[str] = None
 app.config.REQUEST_TIMEOUT: int = 300  # 5 mins
 app.config.REQUEST_MAX_SIZE: int = 1_048_576  # 1 MB
 celery: Celery = Celery("tasks")
-celery.config_from_object("celeryconfig")
+celery.config_from_object(CeleryConfig)
 
 UUID4_REGEX: str = r"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\Z"
 REGEX_TYPES.update({"uuid": (str, UUID4_REGEX)})
