@@ -72,7 +72,7 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(response.get("message"), "Please type an imgur URL")
         self.assertEqual(response.get("status"), 200)
 
-    def test_index_correct_url(self):
+    def test_index_correct_url_brokers_unreachable(self):
         def __is_uuid4(value):
             try:
                 _ = UUID(value, version=4)
@@ -85,7 +85,7 @@ class TestAPI(unittest.TestCase):
                                      data=json.dumps(payload), headers=headers,
                                      method="post")
         response: Dict[ProtocolType] = json.loads(res.text)
-        self.assertEqual(response.get("status"), 200)
+        self.assertEqual(response.get("status"), 500)
 
     def test_status_unknown_task_id(self):
         task_id = "{0}".format(uuid4())
