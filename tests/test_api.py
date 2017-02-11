@@ -85,7 +85,6 @@ class TestAPI(unittest.TestCase):
                                      data=json.dumps(payload), headers=headers,
                                      method="post")
         response: Dict[ProtocolType] = json.loads(res.text)
-        self.assertTrue(__is_uuid4(response.get("message")))
         self.assertEqual(response.get("status"), 200)
 
     def test_status_unknown_task_id(self):
