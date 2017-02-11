@@ -9,6 +9,8 @@ from science.config import (configs, environment)
 
 
 class CeleryConfig:
+    """Celery config options.
+    """
     broker_url: str = configs[environment].broker_url
     result_backend: str = configs[environment].result_backend
     broker_transport_options: Dict[str, Union[str, int]] = {
