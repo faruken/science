@@ -3,20 +3,9 @@
 """celery configs.
 """
 
-from typing import (Dict, Union, List, NamedTuple)
+from typing import (Dict, Union, List)
 
 from science.config import (configs, environment)
-
-ProtocolType = Dict[str, Union[str, int]]
-
-
-class BrokerProtocol(NamedTuple):
-    """Default broker options for celery.
-    """
-    visibility_timeout: int = 7200
-    polling_interval: int = 30
-    queue_name_prefix: str = "celery-science-"
-    region: str = "us-east-1"
 
 
 class CeleryConfig:
@@ -24,7 +13,10 @@ class CeleryConfig:
     """
     broker_url: str = configs[environment].broker_url
     result_backend: str = configs[environment].result_backend
-    broker_transport_options: Dict[ProtocolType] = BrokerProtocol._asdict()
+    broker_transport_options: Dict[str, Union[str, int]] = {
+        "visibility_timeout": 7200, "polling_interval": 30,
+        "queue_name_prefix": "celery-science-",
+        "region": "us-east-1"}
     worker_max_tasks_per_child: int = 1
     worker_max_memory_per_child: int = 400_000  # 400MB
     task_serializer: str = "json"
