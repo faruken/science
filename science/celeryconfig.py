@@ -18,7 +18,6 @@ class CeleryConfig:
         "queue_name_prefix": "celery-science-",
         "region": "us-east-1"}
     worker_max_tasks_per_child: int = 1
-    worker_max_memory_per_child: int = 400_000  # 400MB
     task_serializer: str = "json"
     task_compression: str = "gzip"
     result_serializer: str = "json"
