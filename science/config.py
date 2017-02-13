@@ -14,7 +14,7 @@ class Config:
     DEBUG: bool = True
     TESTING: bool = False
     LOGLEVEL: int = logbook.DEBUG
-    PORT: int = 4000
+    PORT: int = 5000
     log_backend: str = "127.0.0.1"
     broker_url: str = "redis://127.0.0.1:6379/0"
     result_backend: str = "redis://127.0.0.1:6379/0"
