@@ -4,8 +4,9 @@
 """
 from typing import (Optional, Dict)
 
-import os
 import logbook
+import os
+from raven import Client
 
 
 class Config:
@@ -18,6 +19,9 @@ class Config:
     log_backend: str = "127.0.0.1"
     broker_url: str = "redis://127.0.0.1:6379/0"
     result_backend: str = "redis://127.0.0.1:6379/0"
+    sentry_client: Client = Client("http://{0}:{1}@0.0.0.0:9000/{2}".format(os.environ.get("SENTRY_USER"),
+                                                                            os.environ.get("SENTRY_PASSWD"),
+                                                                            os.environ.get("SENTRY_PROJECT")))
     aws_access_key_id: Optional[str] = None
     aws_access_secret_id: Optional[str] = None
 
@@ -46,8 +50,8 @@ class DockerComposeConfig(Config):
     """
     DEBUG: bool = True
     log_backend: str = "redis"
-    broker_url: str = "redis://:redis_passwdd@redis"
-    result_backend: str = "redis://:redis_passwdd@redis"
+    broker_url: str = "redis://redis"
+    result_backend: str = "redis://redis"
 
 
 configs: Dict[str, Config] = {
