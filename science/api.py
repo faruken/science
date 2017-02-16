@@ -11,7 +11,7 @@ from celery import (Celery, signature)
 from celery.canvas import Signature
 from kombu.exceptions import OperationalError
 from logbook import Logger
-from logbook.queues import RedisHandler
+from raven.handlers.logbook import SentryHandler
 from sanic import Sanic
 from sanic.config import Config
 from sanic.exceptions import (NotFound, ServerError, RequestTimeout,
@@ -125,8 +125,6 @@ def main() -> None:  # pragma: no cover
 
 
 if __name__ == '__main__':
-    handler = RedisHandler(host=configs[environment].log_backend,
-                           key="log",
-                           level=configs[environment].LOGLEVEL)
-    with handler:
+    handler = SentryHandler(client=configs[environment].sentry_client)
+    with handler.applicationbound():
         main()
