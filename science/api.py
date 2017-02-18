@@ -17,7 +17,7 @@ from sanic.config import Config
 from sanic.exceptions import (NotFound, ServerError, RequestTimeout,
                               InvalidUsage)
 from sanic.request import Request
-from sanic.response import json
+from sanic.response import (json, HTTPResponse)
 from sanic.router import REGEX_TYPES
 
 from science.celeryconfig import CeleryConfig
@@ -39,7 +39,7 @@ REGEX_TYPES.update({"uuid": (str, UUID4_REGEX)})
 
 
 @app.exception(RequestTimeout)
-def error_408(request: Request, exception: RequestTimeout) -> str:
+def error_408(request: Request, exception: RequestTimeout) -> HTTPResponse:
     """Request Time out.
     :param request: Request
     :param exception: RequestTimeout
@@ -49,7 +49,7 @@ def error_408(request: Request, exception: RequestTimeout) -> str:
 
 
 @app.exception(InvalidUsage)
-def error_405(request: Request, exception: InvalidUsage) -> str:
+def error_405(request: Request, exception: InvalidUsage) -> HTTPResponse:
     """MEthod Not Allowed. For some odd reasons, Sanic doesn't have MethodNotAllowedException.
     :param request: Request
     :param exception: InvalidUsage (hopefully Sanic will implement a proper MethodNotAllowedException)
@@ -59,7 +59,7 @@ def error_405(request: Request, exception: InvalidUsage) -> str:
 
 
 @app.exception(NotFound)
-def error_404(request: Request, exception: NotFound) -> str:
+def error_404(request: Request, exception: NotFound) -> HTTPResponse:
     """Not Found
     :param request: Request
     :param exception: NotFound
@@ -69,7 +69,7 @@ def error_404(request: Request, exception: NotFound) -> str:
 
 
 @app.exception(ServerError)
-def error_500(request: Request, exception: ServerError) -> str:
+def error_500(request: Request, exception: ServerError) -> HTTPResponse:
     """Internal Server Error
     :param request: Request
     :param exception: Exception
@@ -79,7 +79,7 @@ def error_500(request: Request, exception: ServerError) -> str:
 
 
 @app.route("/status/<task_id:uuid>")
-async def status(request: Request, task_id: str) -> str:
+async def status(request: Request, task_id: str) -> HTTPResponse:
     """Status route for given task id
     :param request: Request
     :param task_id: UUID4 value of task_id
@@ -90,7 +90,7 @@ async def status(request: Request, task_id: str) -> str:
 
 
 @app.route("/", methods=["POST"])
-async def index(request: Request) -> str:
+async def index(request: Request) -> HTTPResponse:
     """Chain the tasks and send it to background workers. Supports only POST.
     :param request: Request
     :return: JSON
