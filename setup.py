@@ -43,7 +43,7 @@ setup(
         "Sanic==0.3.1",
         "six==1.10.0",
         "ujson==1.35",
-        "uvloop==0.7.2",
+        "uvloop==0.8.0",
         "vine==1.1.3"
     ],
     extras_require={
