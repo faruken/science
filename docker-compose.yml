@@ -1,4 +1,8 @@
 version: "2"
+networks:
+  default:
+    external:
+      name: science
 services:
   redis:
     image: redis:3.2.6-alpine
