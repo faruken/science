@@ -15,7 +15,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DNAME=sentry
+      - POSTGRES_DB=sentry
       - POSTGRES_DBPASS=sentry
     volumes:
       - /tmp/postgres:/var/lib/postgresql/data:rw
