@@ -9,6 +9,7 @@ from typing import Optional
 
 from celery import (Celery, signature)
 from celery.canvas import Signature
+from celery.result import AsyncResult
 from kombu.exceptions import OperationalError
 from logbook import Logger
 from raven.handlers.logbook import SentryHandler
@@ -103,7 +104,7 @@ async def index(request: Request) -> HTTPResponse:
     chain: Signature = signature("tasks.fetch", kwargs={"url": url})
     chain |= signature("tasks.analyze", kwargs={"url": url})
     try:
-        task = chain()
+        task: AsyncResult = chain()
     except OperationalError:
         log.critical("Cannot connect to broker: {0}".format(
             configs[environment].broker_url))
