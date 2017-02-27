@@ -38,17 +38,17 @@ setup(
         "packaging==16.8",
         "pyparsing==2.1.10",
         "pytz==2016.10",
-        "raven==5.32.0",
+        "raven==6.0.0",
         "redis==2.10.5",
-        "Sanic==0.3.1",
+        "sanic==0.4.0",
         "six==1.10.0",
         "ujson==1.35",
         "uvloop==0.8.0",
         "vine==1.1.3"
     ],
     extras_require={
-        "test": ["coverage==4.3.4", "pytest==3.0.5", "pytest-cov==2.4.0"],
-        "dev": ["mypy-lang==0.4.6", "typed-ast==0.6.3"]
+        "test": ["coverage==4.3.4", "pytest==3.0.6", "pytest-cov==2.4.0"],
+        "dev": ["mypy-lang==0.4.6", "typed-ast==1.0.1"]
     },
     entry_points={
         "console_scripts": ["science=science.api:main"]
