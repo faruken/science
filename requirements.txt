@@ -12,9 +12,9 @@ multidict==2.1.4
 packaging==16.8
 pyparsing==2.1.10
 pytz==2016.10
-raven==5.32.0
+raven==6.0.0
 redis==2.10.5
-sanic==0.3.1
+sanic==0.4.0
 six==1.10.0
 ujson==1.35
 uvloop==0.8.0
