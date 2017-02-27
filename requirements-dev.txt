@@ -1,16 +1,16 @@
 -r requirements.txt
-aiohttp==1.2.0
+aiohttp==1.3.3
 astroid==1.4.9
 async-timeout==1.1.0
 chardet==2.3.0
 coverage==4.3.4
 isort==4.2.5
 lazy-object-proxy==1.2.2
-mccabe==0.5.3
+mccabe==0.6.1
 mypy-lang==0.4.6
-pylint==1.6.4
-pytest==3.0.5
+pylint==1.6.5
+pytest==3.0.6
 pytest-cov==2.4.0
-typed-ast==0.6.3
+typed-ast==1.0.1
 wrapt==1.10.8
-yarl==0.8.1
+yarl==0.9.8
