@@ -76,3 +76,14 @@ services:
       - redis
     ports:
       - "5000:5000"
+  nginx:
+    image: "nginx:1.11.10-alpine"
+    hostname: nginx
+    domainname: docker.nginx
+    volumes:
+      - ./www:/usr/share/nginx/html:ro
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /tmp/nginx:/tmp/:rw
+    restart: always
+    ports:
+      - "8000:80"
