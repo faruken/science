@@ -77,7 +77,7 @@ services:
     ports:
       - "5000:5000"
   nginx:
-    image: "nginx:1.11.10-alpine"
+    image: nginx:1.11.10-alpine
     hostname: nginx
     domainname: docker.nginx
     volumes:
