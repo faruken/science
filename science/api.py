@@ -79,6 +79,15 @@ def error_500(request: Request, exception: ServerError) -> HTTPResponse:
     return json(Protocol(500, "Something went wrong :(")._asdict())
 
 
+@app.route("/health")
+async def health(request: Request) -> HTTPResponse:
+    """Health check
+    :param request: Request
+    :return: JSON
+    """
+    return json(Protocol(200, 1)._asdict())
+
+
 @app.route("/status/<task_id:uuid>")
 async def status(request: Request, task_id: str) -> HTTPResponse:
     """Status route for given task id
