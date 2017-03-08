@@ -56,6 +56,12 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(payload.get("status"), 500)
         self.assertEqual(payload.get("message"), "Something went wrong :(")
 
+    def test_health(self):
+        _, res = sanic_endpoint_test(self.app, uri="/health", method="get")
+        payload: Dict[ProtocolType] = json.loads(res.text)
+        self.assertEqual(payload.get("message"), 1)
+        self.assertEqual(payload.get("status"), 200)
+
     def test_index_method_not_allowed(self):
         _, res = sanic_endpoint_test(self.app, uri="/", method="get")
         payload: Dict[ProtocolType] = json.loads(res.text)
